@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CyberSaarthi — Know Your Risk. Secure Your Business.</title>
+
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+
+        /* =========================
+           VARIABLES
+        ========================= */
+
+        :root {
+
+            --black: #080909;
+            --black-2: #101111;
+            --black-3: #151616;
+
+            --white: #f7f7f5;
+
+            --gray-1: #deded9;
+            --gray-2: #a6a6a0;
+            --gray-3: #6e6e69;
+            --gray-4: #3b3b39;
+
+            --line: #272827;
+
+            --blue: #7db7ff;
+            --green: #62d99a;
+            --orange: #e8ad62;
+
+            --display: "Space Grotesk", sans-serif;
+            --body: "Inter", sans-serif;
+            --mono: "IBM Plex Mono", monospace;
+        }
+
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: var(--body);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ::selection {
+            background: var(--white);
+            color: var(--black);
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            max-width: 1180px;
+            margin: auto;
+            padding: 0 32px;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 100;
+
+            background: rgba(8, 9, 9, 0.82);
+
+            backdrop-filter: blur(14px);
+
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav {
+            max-width: 1180px;
+            margin: auto;
+
+            padding: 17px 32px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-family: var(--display);
+
+            font-size: 17px;
+            font-weight: 600;
+
+            letter-spacing: .02em;
+        }
+
+        .logo-mark {
+            width: 23px;
+            height: 23px;
+
+            border: 1.5px solid var(--white);
+
+            border-radius: 6px;
+
+            position: relative;
+        }
+
+        .logo-mark::after {
+            content: "";
+
+            position: absolute;
+
+            width: 7px;
+            height: 7px;
+
+            background: var(--white);
+
+            border-radius: 2px;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+        }
+
+        .nav-center {
+            display: none;
+
+            gap: 30px;
+
+            font-family: var(--mono);
+
+            font-size: 11px;
+
+            color: var(--gray-3);
+        }
+
+        .nav-center a {
+            transition: .2s;
+        }
+
+        .nav-center a:hover {
+            color: var(--white);
+        }
+
+        @media(min-width: 760px) {
+
+            .nav-center {
+                display: flex;
+            }
+
+        }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            font-family: var(--mono);
+
+            font-size: 10px;
+
+            color: var(--gray-3);
+
+            letter-spacing: .05em;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+
+            background: var(--green);
+
+            border-radius: 50%;
+
+            box-shadow: 0 0 10px rgba(98, 217, 154, .6);
+
+            animation: blink 2s infinite;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+
+            min-height: 100vh;
+
+            padding-top: 78px;
+
+            display: flex;
+
+            align-items: center;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .grid-background {
+
+            position: absolute;
+
+            inset: 0;
+
+            background-image:
+                linear-gradient(var(--line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line) 1px, transparent 1px);
+
+            background-size: 55px 55px;
+
+            opacity: .35;
+
+            mask-image:
+                radial-gradient(
+                    ellipse 70% 65% at 50% 45%,
+                    black,
+                    transparent 85%
+                );
+        }
+
+        .hero-glow {
+
+            position: absolute;
+
+            width: 600px;
+            height: 600px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(125,183,255,.08),
+                    transparent 68%
+                );
+
+            left: 50%;
+            top: 43%;
+
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-layout {
+
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns: 1fr;
+
+            gap: 50px;
+
+            align-items: center;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+        @media(min-width: 900px) {
+
+            .hero-layout {
+
+                grid-template-columns: 1.05fr .95fr;
+
+            }
+
+        }
+
+
+        /* =========================
+           HERO LEFT
+        ========================= */
+
+        .hero-left {
+            max-width: 680px;
+        }
+
+        .eyebrow {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            border: 1px solid var(--line);
+
+            padding: 7px 13px;
+
+            border-radius: 3px;
+
+            font-family: var(--mono);
+
+            font-size: 10px;
+
+            color: var(--gray-2);
+
+            letter-spacing: .06em;
+
+            margin-bottom: 25px;
+        }
+
+        .eyebrow span {
+
+            width: 6px;
+            height: 6px;
+
+            background: var(--green);
+
+            border-radius: 50%;
+
+            box-shadow: 0 0 10px rgba(98,217,154,.5);
+
+        }
+
+        .hero h1 {
+
+            font-family: var(--display);
+
+            font-size: clamp(43px, 6vw, 72px);
+
+            line-height: 1.01;
+
+            letter-spacing: -.045em;
+
+            margin-bottom: 25px;
+        }
+
+        .hero h1 .accent {
+
+            color: var(--blue);
+
+        }
+
+        .hero-description {
+
+            max-width: 560px;
+
+            color: var(--gray-2);
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+            margin-bottom: 32px;
+        }
+
+        .hero-description strong {
+            color: var(--gray-1);
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .primary-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 13px 20px;
+
+            background: var(--white);
+
+            color: var(--black);
+
+            border: 1px solid var(--white);
+
+            border-radius: 3px;
+
+            font-family: var(--mono);
+
+            font-size: 12px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition: .25s;
+        }
+
+        .primary-button:hover {
+
+            background: transparent;
+
+            color: var(--white);
+
+            gap: 17px;
+
+        }
+
+        .arrow {
+
+            font-size: 15px;
+
+            transition: .25s;
+
+        }
+
+        .hero-meta {
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+            margin-top: 25px;
+
+            color: var(--gray-3);
+
+            font-family: var(--mono);
+
+            font-size: 9px;
+
+            letter-spacing: .04em;
+        }
+
+
+        /* =========================
+           HERO VISUAL
+        ========================= */
+
+        .hero-visual {
+
+            min-height: 500px;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+        .visual-circle {
+
+            position: absolute;
+
+            border: 1px solid var(--line);
+
+            border-radius: 50%;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+
+        }
+
+        .circle-one {
+
+            width: 300px;
+            height: 300px;
+
+        }
+
+        .circle-two {
+
+            width: 450px;
+            height: 450px;
+
+            opacity: .45;
+
+        }
+
+
+        /* MAIN VISUAL */
+
+        .security-visual {
+
+            width: 430px;
+            height: 430px;
+
+            position: relative;
+
+        }
+
+
+        /* SHIELD */
+
+        .shield {
+
+            width: 145px;
+            height: 170px;
+
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+
+            background: rgba(125,183,255,.05);
+
+            border: 1px solid rgba(125,183,255,.45);
+
+            clip-path: polygon(
+                50% 0%,
+                91% 15%,
+                86% 67%,
+                50% 100%,
+                14% 67%,
+                9% 15%
+            );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            box-shadow:
+                0 0 50px rgba(125,183,255,.08);
+
+            animation: shieldPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes shieldPulse {
+
+            0%,100% {
+                box-shadow:
+                    0 0 35px rgba(125,183,255,.05);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 60px rgba(125,183,255,.15);
+            }
+
+        }
+
+        .shield-inner {
+
+            width: 65px;
+            height: 65px;
+
+            border-radius: 50%;
+
+            border: 1px solid var(--blue);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+
+            color: var(--blue);
+
+            box-shadow:
+                0 0 25px rgba(125,183,255,.18);
+        }
+
+
+        /* BUSINESS CARD */
+
+        .business-card {
+
+            position: absolute;
+
+            top: 15px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            background: var(--black-2);
+
+            border: 1px solid var(--line);
+
+            padding: 12px 16px;
+
+            border-radius: 5px;
+
+            min-width: 210px;
+
+            z-index: 5;
+
+        }
+
+        .person-icon {
+
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid var(--line);
+
+            border-radius: 4px;
+
+            font-size: 16px;
+        }
+
+        .visual-small {
+
+            font-family: var(--mono);
+
+            font-size: 8px;
+
+            color: var(--gray-3);
+
+            margin-bottom: 3px;
+        }
+
+        .visual-title {
+
+            font-family: var(--display);
+
+            font-size: 13px;
+
+            color: var(--white);
+        }
+
+
+        /* ASSETS */
+
+        .asset {
+
+            position: absolute;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            background: var(--black-2);
+
+            border: 1px solid var(--line);
+
+            padding: 10px 12px;
+
+            border-radius: 4px;
+
+            font-family: var(--mono);
+
+            font-size: 9px;
+
+            color: var(--gray-2);
+
+            z-index: 5;
+
+            transition: .25s;
+        }
+
+        .asset:hover {
+
+            border-color: var(--blue);
+
+            color: var(--white);
+
+            transform: translateY(-3px);
+
+        }
+
+        .asset-icon {
+
+            width: 29px;
+            height: 29px;
+
+            border: 1px solid var(--line);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 8px;
+
+            color: var(--blue);
+
+            border-radius: 3px;
+        }
+
+
+        /* ASSET POSITIONS */
+
+        .asset-one {
+
+            left: 5px;
+            top: 155px;
+
+        }
+
+        .asset-two {
+
+            left: 15px;
+            bottom: 75px;
+
+        }
+
+        .asset-three {
+
+            right: 5px;
+            top: 155px;
+
+        }
+
+        .asset-four {
+
+            right: 15px;
+            bottom: 75px;
+
+        }
+
+
+        /* CONNECTION LINES */
+
+        .connection {
+
+            position: absolute;
+
+            height: 1px;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--line),
+                transparent
+            );
+
+            transform-origin: center;
+
+            z-index: 1;
+        }
+
+        .line-one {
+
+            width: 125px;
+
+            left: 90px;
+            top: 185px;
+
+            transform: rotate(10deg);
+
+        }
+
+        .line-two {
+
+            width: 125px;
+
+            left: 90px;
+            top: 300px;
+
+            transform: rotate(-15deg);
+
+        }
+
+        .line-three {
+
+            width: 125px;
+
+            right: 90px;
+            top: 185px;
+
+            transform: rotate(-10deg);
+
+        }
+
+        .line-four {
+
+            width: 125px;
+
+            right: 90px;
+            top: 300px;
+
+            transform: rotate(15deg);
+
+        }
+
+
+        /* VISUAL CAPTION */
+
+        .visual-caption {
+
+            position: absolute;
+
+            bottom: 5px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            white-space: nowrap;
+
+            font-family: var(--mono);
+
+            font-size: 9px;
+
+            color: var(--gray-3);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+        }
+
+        .caption-dot {
+
+            width: 5px;
+            height: 5px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 8px rgba(98,217,154,.5);
+        }
+
+
+        /* =========================
+           ASSET BAR
+        ========================= */
+
+        .asset-bar {
+
+            border-top: 1px solid var(--line);
+
+            border-bottom: 1px solid var(--line);
+
+            padding: 20px 0;
+
+        }
+
+        .asset-list {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 28px;
+
+            font-family: var(--mono);
+
+            font-size: 9px;
+
+            color: var(--gray-3);
+
+            letter-spacing: .04em;
+        }
+
+        .asset-list span::before {
+
+            content: "●";
+
+            color: var(--gray-4);
+
+            margin-right: 8px;
+
+        }
+
+
+        /* =========================
+           HOW IT WORKS
+        ========================= */
+
+        .section {
+
+            padding: 105px 0;
+
+            background: var(--black);
+        }
+
+        .section-label {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-family: var(--mono);
+
+            font-size: 10px;
+
+            color: var(--gray-3);
+
+            letter-spacing: .08em;
+
+            margin-bottom: 14px;
+        }
+
+        .section-label::before {
+
+            content: "";
+
+            width: 18px;
+
+            height: 1px;
+
+            background: var(--gray-3);
+
+        }
+
+        .section-title {
+
+            font-family: var(--display);
+
+            font-size: clamp(28px,4vw,42px);
+
+            letter-spacing: -.035em;
+
+            max-width: 650px;
+
+            line-height: 1.1;
+
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+
+            color: var(--gray-3);
+
+            max-width: 550px;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin-bottom: 45px;
+        }
+
+
+        /* PROCESS */
+
+        .process {
+
+            display: grid;
+
+            grid-template-columns: repeat(1,1fr);
+
+            border: 1px solid var(--line);
+        }
+
+        @media(min-width:750px) {
+
+            .process {
+
+                grid-template-columns: repeat(4,1fr);
+
+            }
+
+        }
+
+        .process-card {
+
+            padding: 28px 23px;
+
+            background: var(--black-2);
+
+            border-right: 1px solid var(--line);
+
+            position: relative;
+
+            transition: .25s;
+        }
+
+        .process-card:last-child {
+
+            border-right: none;
+
+        }
+
+        .process-card:hover {
+
+            background: var(--black-3);
+
+        }
+
+        .process-number {
+
+            font-family: var(--mono);
+
+            font-size: 10px;
+
+            color: var(--gray-4);
+
+            margin-bottom: 30px;
+        }
+
+        .process-icon {
+
+            font-size: 20px;
+
+            margin-bottom: 17px;
+
+            color: var(--blue);
+        }
+
+        .process-card h3 {
+
+            font-family: var(--display);
+
+            font-size: 16px;
+
+            margin-bottom: 8px;
+        }
+
+        .process-card p {
+
+            color: var(--gray-3);
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           RISK SECTION
+        ========================= */
+
+        .risk-section {
+
+            padding: 100px 0;
+
+            background: var(--white);
+
+            color: var(--black);
+        }
+
+        .risk-layout {
+
+            display: grid;
+
+            grid-template-columns: 1fr;
+
+            gap: 55px;
+
+            align-items: center;
+        }
+
+        @media(min-width:850px) {
+
+            .risk-layout {
+
+                grid-template-columns: 1fr 1fr;
+
+            }
+
+        }
+
+        .risk-label {
+
+            font-family: var(--mono);
+
+            font-size: 10px;
+
+            color: #777;
+
+            margin-bottom: 14px;
+
+            letter-spacing: .08em;
+        }
+
+        .risk-title {
+
+            font-family: var(--display);
+
+            font-size: clamp(30px,4vw,45px);
+
+            line-height: 1.05;
+
+            letter-spacing: -.04em;
+
+            margin-bottom: 18px;
+        }
+
+        .risk-description {
+
+            color: #686865;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            max-width: 480px;
+        }
+
+
+        /* RISK LIST */
+
+        .risk-panel {
+
+            border: 1px solid #d8d8d3;
+
+            border-radius: 5px;
+
+            overflow: hidden;
+
+            background: #fff;
+        }
+
+        .risk-panel-header {
+
+            padding: 14px 17px;
+
+            border-bottom: 1px solid #deded9;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            font-family: var(--mono);
+
+            font-size: 9px;
+
+            color: #777;
+        }
+
+        .risk-item {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 17px;
+
+            border-bottom: 1px solid #e8e8e4;
+        }
+
+        .risk-item:last-child {
+
+            border-bottom: none;
+
+        }
+
+        .risk-name {
+
+            font-size: 12px;
+
+            font-weight: 500;
+        }
+
+        .risk-level {
+
+            font-family: var(--mono);
+
+            font-size: 9px;
+
+            padding: 5px 8px;
+
+            border-radius: 2px;
+        }
+
+        .high {
+
+            color: #b42318;
+
+            background: #fef3f2;
+
+        }
+
+        .medium {
+
+            color: #b54708;
+
+            background: #fffaeb;
+
+        }
+
+        .low {
+
+            color: #027a48;
+
+            background: #ecfdf3;
+
+        }
+
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+
+            padding: 100px 0;
+
+            text-align: center;
+
+            border-top: 1px solid var(--line);
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .cta-watermark {
+
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%,-50%);
+
+            font-family: var(--display);
+
+            font-size: min(18vw,210px);
+
+            font-weight: 700;
+
+            color: #0e0f0f;
+
+            white-space: nowrap;
+
+            pointer-events: none;
+        }
+
+        .cta-content {
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+        .cta h2 {
+
+            font-family: var(--display);
+
+            font-size: clamp(30px,4vw,45px);
+
+            letter-spacing: -.04em;
+
+            margin-bottom: 13px;
+        }
+
+        .cta p {
+
+            font-family: var(--mono);
+
+            font-size: 10px;
+
+            color: var(--gray-3);
+
+            margin-bottom: 28px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+
+            border-top: 1px solid var(--line);
+
+            padding: 25px 0;
+        }
+
+        .footer-inner {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            color: var(--gray-3);
+
+            font-family: var(--mono);
+
+            font-size: 9px;
+        }
+
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        @keyframes blink {
+
+            0%,100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .25;
+            }
+
+        }
+
+
+        @media(max-width: 900px) {
+
+            .hero-layout {
+
+                grid-template-columns: 1fr;
+
+                gap: 20px;
+
+            }
+
+            .hero-left {
+
+                text-align: center;
+
+                margin: auto;
+
+            }
+
+            .hero-description {
+
+                margin-left: auto;
+
+                margin-right: auto;
+
+            }
+
+            .hero-meta {
+
+                justify-content: center;
+
+            }
+
+            .hero-visual {
+
+                transform: scale(.85);
+
+                margin-top: -30px;
+
+            }
+
+        }
+
+
+        @media(max-width: 600px) {
+
+            .nav-center {
+                display: none;
+            }
+
+            .system-status {
+                font-size: 8px;
+            }
+
+            .hero {
+
+                padding-top: 100px;
+
+            }
+
+            .hero-visual {
+
+                transform: scale(.68);
+
+                margin-top: -70px;
+
+                margin-bottom: -70px;
+
+            }
+
+            .footer-inner {
+
+                flex-direction: column;
+
+            }
+
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <header>
+
+        <nav class="nav">
+
+            <div class="logo">
+
+                <span class="logo-mark"></span>
+
+                cybersaarthi
+
+            </div>
+
+
+            <div class="nav-center">
+
+                <a href="#how">
+                    How it works
+                </a>
+
+                <a href="#risk">
+                    Risk assessment
+                </a>
+
+                <a href="#start">
+                    Get started
+                </a>
+
+            </div>
+
+
+            <div class="system-status">
+
+                <span class="status-dot"></span>
+
+                SYSTEM OPERATIONAL
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="grid-background"></div>
+
+        <div class="hero-glow"></div>
+
+
+        <div class="container">
+
+            <div class="hero-layout">
+
+
+                <!-- LEFT -->
+
+                <div class="hero-left">
+
+                    <div class="eyebrow">
+
+                        <span></span>
+
+                        CYBERSECURITY FOR SMALL BUSINESSES
+
+                    </div>
+
+
+                    <h1>
+
+                        Protect your business
+
+                        <br>
+
+                        <span class="accent">
+                            before threats do.
+                        </span>
+
+                    </h1>
+
+
+                    <p class="hero-description">
+
+                        CyberSaarthi helps businesses discover
+                        security weaknesses across their
+                        <strong>websites, devices, networks and accounts</strong>
+                        — and tells them what to fix first.
+
+                    </p>
+
+
+                    <a href="#start" class="primary-button">
+
+                        Start Security Assessment
+
+                        <span class="arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <div class="hero-meta">
+
+                        <span>DISCOVER</span>
+
+                        <span>·</span>
+
+                        <span>ASSESS</span>
+
+                        <span>·</span>
+
+                        <span>FIX</span>
+
+                        <span>·</span>
+
+                        <span>MONITOR</span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RIGHT VISUAL -->
+
+                <div class="hero-visual">
+
+
+                    <div class="visual-circle circle-one"></div>
+
+                    <div class="visual-circle circle-two"></div>
+
+
+                    <div class="security-visual">
+
+
+                        <!-- BUSINESS -->
+
+                        <div class="business-card">
+
+                            <div class="person-icon">
+                                👤
+                            </div>
+
+                            <div>
+
+                                <div class="visual-small">
+                                    YOUR BUSINESS
+                                </div>
+
+                                <div class="visual-title">
+                                    Digital Protection
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- SHIELD -->
+
+                        <div class="shield">
+
+                            <div class="shield-inner">
+                                ✓
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- WEBSITE -->
+
+                        <div class="asset asset-one">
+
+                            <div class="asset-icon">
+                                WEB
+                            </div>
+
+                            <span>
+                                Website
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- DEVICE -->
+
+                        <div class="asset asset-two">
+
+                            <div class="asset-icon">
+                                DEV
+                            </div>
+
+                            <span>
+                                Devices
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- NETWORK -->
+
+                        <div class="asset asset-three">
+
+                            <div class="asset-icon">
+                                NET
+                            </div>
+
+                            <span>
+                                Network
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- ACCOUNTS -->
+
+                        <div class="asset asset-four">
+
+                            <div class="asset-icon">
+                                ACC
+                            </div>
+
+                            <span>
+                                Accounts
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- CONNECTIONS -->
+
+                        <div class="connection line-one"></div>
+
+                        <div class="connection line-two"></div>
+
+                        <div class="connection line-three"></div>
+
+                        <div class="connection line-four"></div>
+
+
+                    </div>
+
+
+                    <div class="visual-caption">
+
+                        <span class="caption-dot"></span>
+
+                        One platform. Multiple layers of protection.
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         ASSET BAR
+    ========================= -->
+
+    <div class="asset-bar">
+
+        <div class="container">
+
+            <div class="asset-list">
+
+                <span>WEBSITE</span>
+
+                <span>DEVICES</span>
+
+                <span>NETWORK</span>
+
+                <span>ACCOUNTS</span>
+
+                <span>RISK ANALYSIS</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         HOW IT WORKS
+    ========================= -->
+
+    <section class="section" id="how">
+
+        <div class="container">
+
+
+            <div class="section-label">
+
+                HOW CYBERSAARTHI WORKS
+
+            </div>
+
+
+            <h2 class="section-title">
+
+                From uncertainty
+
+                <br>
+
+                to clear action.
+
+            </h2>
+
+
+            <p class="section-description">
+
+                Cybersecurity can be difficult to understand.
+                CyberSaarthi turns security findings into a simple
+                process that tells you what happened, why it matters,
+                and what you should do next.
+
+            </p>
+
+
+
+            <div class="process">
+
+
+                <!-- 01 -->
+
+                <div class="process-card">
+
+                    <div class="process-number">
+                        01 / DISCOVER
+                    </div>
+
+                    <div class="process-icon">
+                        ◉
+                    </div>
+
+                    <h3>
+                        Find weaknesses
+                    </h3>
+
+                    <p>
+
+                        Scan your digital assets and identify
+                        common security vulnerabilities.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- 02 -->
+
+                <div class="process-card">
+
+                    <div class="process-number">
+                        02 / ANALYZE
+                    </div>
+
+                    <div class="process-icon">
+                        ◫
+                    </div>
+
+                    <h3>
+                        Understand risk
+                    </h3>
+
+                    <p>
+
+                        Analyze each finding according to
+                        severity and potential impact.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- 03 -->
+
+                <div class="process-card">
+
+                    <div class="process-number">
+                        03 / PRIORITIZE
+                    </div>
+
+                    <div class="process-icon">
+                        ◈
+                    </div>
+
+                    <h3>
+                        Know what matters
+                    </h3>
+
+                    <p>
+
+                        Focus first on vulnerabilities that
+                        could cause the greatest damage.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- 04 -->
+
+                <div class="process-card">
+
+                    <div class="process-number">
+                        04 / IMPROVE
+                    </div>
+
+                    <div class="process-icon">
+                        ↗
+                    </div>
+
+                    <h3>
+                        Fix and monitor
+                    </h3>
+
+                    <p>
+
+                        Follow practical guidance and
+                        rescan to track improvements.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         RISK SECTION
+    ========================= -->
+
+    <section class="risk-section" id="risk">
+
+        <div class="container">
+
+            <div class="risk-layout">
+
+
+                <div>
+
+                    <div class="risk-label">
+
+                        RISK INTELLIGENCE
+
+                    </div>
+
+
+                    <h2 class="risk-title">
+
+                        Don't just find
+                        vulnerabilities.
+
+                        <br>
+
+                        Know what to fix first.
+
+                    </h2>
+
+
+                    <p class="risk-description">
+
+                        CyberSaarthi prioritizes security findings
+                        so business owners can spend their time
+                        fixing the problems that matter most.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="risk-panel">
+
+
+                    <div class="risk-panel-header">
+
+                        <span>
+                            SECURITY FINDINGS
+                        </span>
+
+                        <span>
+                            PRIORITY
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="risk-item">
+
+                        <span class="risk-name">
+                            Weak authentication
+                        </span>
+
+                        <span class="risk-level high">
+                            HIGH
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="risk-item">
+
+                        <span class="risk-name">
+                            Outdated software
+                        </span>
+
+                        <span class="risk-level medium">
+                            MEDIUM
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="risk-item">
+
+                        <span class="risk-name">
+                            Missing security headers
+                        </span>
+
+                        <span class="risk-level medium">
+                            MEDIUM
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="risk-item">
+
+                        <span class="risk-name">
+                            Minor configuration issue
+                        </span>
+
+                        <span class="risk-level low">
+                            LOW
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         CTA
+    ========================= -->
+
+    <section class="cta" id="start">
+
+        <div class="cta-watermark">
+            CYBERSAARTHI
+        </div>
+
+
+        <div class="container">
+
+            <div class="cta-content">
+
+                <h2>
+                    Know your security posture.
+                </h2>
+
+                <p>
+                    START WITH A SIMPLE ASSESSMENT
+                </p>
+
+
+                <a href="#" class="primary-button">
+
+                    Start Security Assessment
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-inner">
+
+                <span>
+                    © 2026 CYBERSAARTHI
+                </span>
+
+                <span>
+                    MAKING CYBERSECURITY SIMPLE FOR BUSINESSES
+                </span>
+
+                <span>
+                    SYSTEM: OPERATIONAL
+                </span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>
