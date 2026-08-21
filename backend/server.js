@@ -1,84 +1,129 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const axios = require("axios");
+
+const Scan = require("./models/scan");
+const calculateRisk = require("./riskEngine");
 
 const app = express();
 
+const PORT = process.env.PORT || 5000;
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-const PORT = 5000;
+// ===============================
+// MongoDB Connection
+// ===============================
+mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => {
+        console.log("MongoDB connected successfully");
+    })
+    .catch((error) => {
+        console.error("MongoDB connection failed:", error.message);
+    });
 
-// Test route
+// ===============================
+// Test Route
+// ===============================
 app.get("/", (req, res) => {
     res.json({
         message: "CyberSaarthi backend is running!"
     });
 });
 
-// Health check
+// ===============================
+// Health Check
+// ===============================
 app.get("/api/health", (req, res) => {
     res.json({
         status: "OK"
     });
 });
 
-// Scan endpoint
+// ===============================
+// Scan Route
+// ===============================
 app.post("/api/scan", async (req, res) => {
-    const { target, type } = req.body;
+    try {
+        const { target } = req.body;
 
-    if (!target) {
-        return res.status(400).json({
-            error: "Target is required"
+        // Check target
+        if (!target) {
+            return res.status(400).json({
+                success: false,
+                error: "Target is required"
+            });
+        }
+
+        console.log("Starting scan for:", target);
+
+        // ===============================
+        // 1. Send target to Python Scanner
+        // ===============================
+        const scannerResponse = await axios.post(
+            "http://localhost:5001/scan",
+            {
+                target: target
+            }
+        );
+
+        const scannerData = scannerResponse.data;
+
+        console.log("Scanner response received");
+
+        // ===============================
+        // 2. Calculate Risk
+        // ===============================
+        const risk = calculateRisk(scannerData.findings);
+
+        console.log("Risk calculated:", risk);
+
+        // ===============================
+        // 3. Save Scan to MongoDB
+        // ===============================
+        const savedScan = await Scan.create({
+            target: target,
+            securityScore: risk.securityScore,
+            riskLevel: risk.riskLevel,
+            findings: scannerData.findings
+        });
+
+        console.log("Scan saved to MongoDB:", savedScan._id);
+
+        // ===============================
+        // 4. Send Result to Frontend
+        // ===============================
+        res.json({
+            success: true,
+            target: target,
+            securityScore: risk.securityScore,
+            riskLevel: risk.riskLevel,
+            findings: scannerData.findings,
+            scanId: savedScan._id
+        });
+
+    } catch (error) {
+        console.error("Scan error:", error.message);
+
+        res.status(500).json({
+            success: false,
+            error: "Scan failed",
+            details: error.message
         });
     }
-
-    console.log("Scan requested:", target);
-
-    // Scanner will be connected here later.
-
-    res.json({
-    success: true,
-    target: target,
-    type: type || "website",
-
-    securityScore: 72,
-
-    summary: {
-        critical: 0,
-        high: 1,
-        medium: 1,
-        low: 1
-    },
-
-    findings: [
-        {
-            id: 1,
-            title: "Missing Security Header",
-            severity: "HIGH",
-            category: "Web Security",
-            description: "A recommended security header is missing.",
-            recommendation: "Configure the appropriate security header."
-        },
-        {
-            id: 2,
-            title: "HTTP Redirect Issue",
-            severity: "MEDIUM",
-            category: "Configuration",
-            description: "The website does not properly enforce HTTPS.",
-            recommendation: "Configure HTTPS and redirect HTTP traffic."
-        },
-        {
-            id: 3,
-            title: "Open Port Detected",
-            severity: "LOW",
-            category: "Network Security",
-            description: "An unnecessary network port appears to be accessible.",
-            recommendation: "Review the exposed port and close it if unnecessary."
-        }
-    ]
-});
 });
 
+// ===============================
+// Start Server
+// ===============================
 app.listen(PORT, () => {
-    console.log(`CyberSaarthi backend running on http://localhost:${PORT}`);
+    console.log(
+        `CyberSaarthi backend running on http://localhost:${PORT}`
+    );
 });
