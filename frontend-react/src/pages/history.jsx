@@ -9,7 +9,7 @@ function History() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const BACKEND_URL = "http://172.19.134.109:5000";
+  const BACKEND_URL = "http://localhost:5000";
 
   useEffect(() => {
     const loadHistory = async () => {

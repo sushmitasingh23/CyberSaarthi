@@ -140,7 +140,7 @@ function Dashboard() {
       // =========================
 
       const response = await fetch(
-        "http://172.19.134.109:5000/api/scan",
+        "http://localhost:5000/api/scan",
         {
           method: "POST",
           headers: {
