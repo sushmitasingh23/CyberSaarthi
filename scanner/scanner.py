@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -32,8 +33,6 @@ def scan_website(target):
             )
 
         except requests.exceptions.SSLError:
-            # Certificate validation failed.
-            # Record the issue, but continue with passive checks.
 
             findings.append({
                 "title": "SSL/TLS Certificate Problem",
@@ -48,7 +47,7 @@ def scan_website(target):
                 )
             })
 
-            # Retry only for passive header inspection.
+            # Retry only for passive header inspection
             response = requests.get(
                 target,
                 timeout=10,
@@ -387,6 +386,18 @@ def scan_website(target):
             )
         }]
 
+    except Exception as error:
+
+        return [{
+            "title": "Scanner Error",
+            "severity": "MEDIUM",
+            "category": "Scanner",
+            "description": str(error),
+            "recommendation": (
+                "Check the scanner logs for more information."
+            )
+        }]
+
 
 # =====================================================
 # SCAN API
@@ -395,7 +406,7 @@ def scan_website(target):
 @app.route("/scan", methods=["POST"])
 def scan():
 
-    data = request.get_json()
+    data = request.get_json(silent=True)
 
     if not data:
 
@@ -413,7 +424,7 @@ def scan():
             "error": "Target is required"
         }), 400
 
-    print("Scanning:", target)
+    print("Scanning:", target, flush=True)
 
     findings = scan_website(target)
 
@@ -442,8 +453,15 @@ def home():
 
 if __name__ == "__main__":
 
+    # Render provides PORT automatically.
+    # Local machine will use 5001.
+
+    port = int(os.environ.get("PORT", 5001))
+
+    print(f"CyberSaarthi Python Scanner starting on port {port}", flush=True)
+
     app.run(
         host="0.0.0.0",
-        port=5001,
-        debug=True
+        port=port,
+        debug=False
     )
