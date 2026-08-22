@@ -20,7 +20,7 @@ const OLLAMA_MODEL =
     process.env.OLLAMA_MODEL || "gemma3";
 
 const SCANNER_URL =
-    process.env.SCANNER_URL || "http://localhost:5001";
+    process.env.SCANNER_URL || "http://localhost:5000";
 
 // =====================================================
 // MIDDLEWARE
