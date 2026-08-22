@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import "./Dashboard.css";
+import "./dashboard.css";
 
-const API_BASE = "http://localhost:5000";
+const API_BASE = "https://cybersaarthi-9rer.onrender.com";
 
 /* =====================================================
    REMEDIATION KNOWLEDGE BASE
