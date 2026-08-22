@@ -13,65 +13,22 @@ def scan_website(target):
         if not target.startswith(("http://", "https://")):
             target = "https://" + target
 
-        ssl_error = False
-
-        try:
-            response = requests.get(
-                target,
-                timeout=10,
-                allow_redirects=True,
-                verify=True
-            )
-
-        except requests.exceptions.SSLError:
-            # Certificate validation failed.
-            # Record the issue, but continue with passive checks.
-            ssl_error = True
-
-            findings.append({
-                "title": "SSL/TLS Certificate Problem",
-                "severity": "HIGH",
-                "category": "SSL/TLS",
-                "description": "The website's TLS certificate could not be validated by the scanner.",
-                "recommendation": "Install and maintain a valid SSL/TLS certificate."
-            })
-
-            # Retry only to inspect public HTTP response headers.
-            # This request does NOT treat the certificate as valid.
-            response = requests.get(
-                target,
-                timeout=10,
-                allow_redirects=True,
-                verify=False
-            )
+        response = requests.get(
+            target,
+            timeout=10,
+            allow_redirects=True,
+            verify=True
+        )
 
         headers = response.headers
 
- 
-       # ==========================================
+        # ==========================================
         # 1. HTTPS CHECK
         # ==========================================
 
-        original_url = target
-        final_url = response.url
-
-        if final_url.startswith("https://"):
-
-            # Check whether HTTP was redirected to HTTPS
-            if original_url.startswith("http://") and not any(
-                r.url.startswith("https://")
-                for r in response.history
-            ):
-                findings.append({
-                    "title": "HTTP Does Not Redirect to HTTPS",
-                    "severity": "MEDIUM",
-                    "category": "HTTPS",
-                    "description": "The website is reachable over HTTP without redirecting the request to HTTPS.",
-                    "recommendation": "Redirect all HTTP traffic to HTTPS."
-                })
-
+        if response.url.startswith("https://"):
+            pass
         else:
-
             findings.append({
                 "title": "Website Not Using HTTPS",
                 "severity": "HIGH",
@@ -80,14 +37,11 @@ def scan_website(target):
                 "recommendation": "Configure HTTPS and redirect all HTTP traffic to HTTPS."
             })
 
-       # ==========================================
+        # ==========================================
         # 2. CONTENT SECURITY POLICY
         # ==========================================
 
-        csp = headers.get("Content-Security-Policy")
-
-        if not csp:
-
+        if "Content-Security-Policy" not in headers:
             findings.append({
                 "title": "Missing Content-Security-Policy Header",
                 "severity": "HIGH",
@@ -95,21 +49,6 @@ def scan_website(target):
                 "description": "The website does not define a Content Security Policy.",
                 "recommendation": "Configure a suitable Content-Security-Policy header."
             })
-
-        else:
-
-            csp_lower = csp.lower()
-
-            # Check for unsafe CSP directives
-            if "'unsafe-inline'" in csp_lower or "'unsafe-eval'" in csp_lower:
-
-                findings.append({
-                    "title": "Weak Content-Security-Policy",
-                    "severity": "MEDIUM",
-                    "category": "Security Headers",
-                    "description": "The Content Security Policy contains potentially unsafe directives.",
-                    "recommendation": "Avoid unsafe-inline and unsafe-eval where possible and use nonces or hashes for trusted scripts."
-                })
 
         # ==========================================
         # 3. X-FRAME-OPTIONS
@@ -200,30 +139,21 @@ def scan_website(target):
             cookie_lower = set_cookie.lower()
 
             if "secure" not in cookie_lower:
-                   findings.append({
-                      "title": "Cookie Missing Secure Flag",
-                      "severity": "MEDIUM",
-                      "category": "Cookie Security",
-                      "description": "A cookie does not appear to use the Secure flag.",
-                      "recommendation": "Set the Secure flag on sensitive cookies."
+                findings.append({
+                    "title": "Cookie Missing Secure Flag",
+                    "severity": "MEDIUM",
+                    "category": "Cookie Security",
+                    "description": "A cookie does not appear to use the Secure flag.",
+                    "recommendation": "Set the Secure flag on sensitive cookies."
                 })
 
             if "httponly" not in cookie_lower:
-                   findings.append({
-                      "title": "Cookie Missing HttpOnly Flag",
-                      "severity": "MEDIUM",
-                      "category": "Cookie Security",
-                      "description": "A cookie does not appear to use the HttpOnly flag.",
-                      "recommendation": "Set HttpOnly on cookies that should not be accessible through JavaScript."
-                })
-
-            if "samesite" not in cookie_lower:
-                   findings.append({
-                      "title": "Cookie Missing SameSite Attribute",
-                      "severity": "LOW",
-                      "category": "Cookie Security",
-                      "description": "A cookie does not appear to define a SameSite attribute.",
-                      "recommendation": "Set an appropriate SameSite attribute such as Lax or Strict."
+                findings.append({
+                    "title": "Cookie Missing HttpOnly Flag",
+                    "severity": "MEDIUM",
+                    "category": "Cookie Security",
+                    "description": "A cookie does not appear to use the HttpOnly flag.",
+                    "recommendation": "Set HttpOnly on cookies that should not be accessible through JavaScript."
                 })
 
         # ==========================================
