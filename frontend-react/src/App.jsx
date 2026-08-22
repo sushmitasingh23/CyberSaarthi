@@ -8,102 +8,53 @@ import ScanResult from "./pages/scanResult";
 import History from "./pages/history";
 import Profile from "./pages/profile";
 import ScanDetails from "./pages/scanDetails";
+import SecurityIssues from "./pages/securityIssues";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* HOME */}
-        <Route
-          path="/"
-          element={
-            <div
-              style={{
-                minHeight: "100vh",
-                background: "#0b0f14",
-                color: "white",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "Arial, sans-serif",
-              }}
-            >
-              <h1>🛡️ CyberSaarthi</h1>
+        <Route path="/" element={<Login />} />
 
-              <p>Cybersecurity Assessment Platform</p>
+        <Route path="/login" element={<Login />} />
 
-              <div style={{ marginTop: "20px" }}>
-                <a
-                  href="/login"
-                  style={{
-                    color: "#2678ff",
-                    marginRight: "20px",
-                  }}
-                >
-                  Login
-                </a>
+        <Route path="/signup" element={<Signup />} />
 
-                <a
-                  href="/signup"
-                  style={{
-                    color: "#2678ff",
-                  }}
-                >
-                  Create Account
-                </a>
-              </div>
-            </div>
-          }
-        />
-
-        {/* LOGIN */}
-        <Route
-          path="/login"
-          element={<Login />}
-        />
-
-        {/* SIGNUP */}
-        <Route
-          path="/signup"
-          element={<Signup />}
-        />
-
-        {/* DASHBOARD */}
+        {/* YOUR ORIGINAL DASHBOARD */}
         <Route
           path="/dashboard"
           element={<Dashboard />}
         />
 
-        {/* SCAN */}
         <Route
           path="/scan"
           element={<Scan />}
         />
 
-        {/* SCAN RESULT */}
         <Route
           path="/scan-result"
           element={<ScanResult />}
         />
 
-        {/* SCAN DETAILS */}
         <Route
           path="/scan-details/:id"
           element={<ScanDetails />}
         />
 
-        {/* HISTORY */}
         <Route
           path="/history"
           element={<History />}
         />
 
-        {/* PROFILE / SETTINGS */}
         <Route
           path="/profile"
           element={<Profile />}
+        />
+
+        <Route
+          path="/security-issues"
+          element={<SecurityIssues />}
         />
 
       </Routes>

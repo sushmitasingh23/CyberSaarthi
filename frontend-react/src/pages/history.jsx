@@ -5,200 +5,111 @@ import "./history.css";
 function History() {
   const navigate = useNavigate();
 
-  const [history, setHistory] = useState([]);
+  const [scans, setScans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const BACKEND_URL = "http://localhost:5000";
 
   useEffect(() => {
-    const loadHistory = async () => {
-      try {
-        setLoading(true);
-        setError("");
-
-        const response = await fetch(`${BACKEND_URL}/api/history`);
-
-        if (!response.ok) {
-          throw new Error("Failed to load scan history");
-        }
-
-        const data = await response.json();
-
-        if (data.success) {
-          setHistory(data.scans || []);
-        } else {
-          throw new Error(data.error || "Could not load history");
-        }
-      } catch (err) {
-        console.error("History error:", err);
-        setError("Could not load scan history.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     loadHistory();
   }, []);
 
-  const formatDate = (dateString) => {
-    if (!dateString) return "Unknown date";
+  const loadHistory = async () => {
+    try {
+      setLoading(true);
+      setError("");
 
-    return new Date(dateString).toLocaleString("en-IN", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+      const response = await fetch(
+        `${BACKEND_URL}/api/history`
+      );
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.error || "Could not load scan history"
+        );
+      }
+
+      setScans(data.scans || []);
+    } catch (error) {
+      console.error("History error:", error);
+      setError("Could not load scan history.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getRiskClass = (riskLevel) => {
     if (!riskLevel) return "";
 
-    return riskLevel.toLowerCase();
+    return riskLevel
+      .toLowerCase()
+      .replace(/\s+/g, "-");
+  };
+
+  const getFindingCount = (scan, severity) => {
+    return (
+      scan.findings?.filter(
+        (finding) => finding.severity === severity
+      ).length || 0
+    );
   };
 
   return (
     <div className="history-page">
 
-      {/* SIDEBAR */}
-      <aside className="sidebar">
+      {/* HEADER */}
 
-        <div className="sidebar-logo">
-          🛡️ CyberSaarthi
+      <div className="history-header">
+
+        <div>
+          <p className="history-label">
+            CYBERSAARTHI
+          </p>
+
+          <h1>Scan History</h1>
+
+          <p>
+            View your previous website security scans.
+          </p>
         </div>
 
         <button
-          className="new-chat-btn"
+          className="primary-btn"
           onClick={() => navigate("/dashboard")}
         >
-          + New Chat
+          ← Back to Dashboard
         </button>
 
-        <nav className="sidebar-nav">
-
-          <button
-            className="nav-item"
-            onClick={() => navigate("/dashboard")}
-          >
-            <span>⌂</span>
-            Dashboard
-          </button>
-
-          <button
-            className="nav-item"
-            onClick={() => navigate("/scan")}
-          >
-            <span>⌕</span>
-            Scan Website
-          </button>
-
-          <button
-            className="nav-item"
-            onClick={() => navigate("/security-issues")}
-          >
-            <span>⚠</span>
-            Security Issues
-          </button>
-
-          <button
-            className="nav-item active"
-            onClick={() => navigate("/history")}
-          >
-            <span>◷</span>
-            Scan History
-          </button>
-
-        </nav>
-
-        <div className="sidebar-bottom">
-
-          <button
-            className="nav-item"
-            onClick={() => navigate("/profile")}
-          >
-            <span>⚙</span>
-            Settings & Privacy
-          </button>
-
-          <div className="security-note">
-            <span>🛡️</span>
-
-            <div>
-              <strong>CyberSaarthi AI</strong>
-              <small>Security Assistant</small>
-            </div>
-          </div>
-
-        </div>
-
-      </aside>
+      </div>
 
 
-      {/* MAIN CONTENT */}
-      <main className="history-main">
+      {/* CONTENT */}
 
-        <header className="history-header">
+      <div className="history-container">
 
-          <div>
-            <h1>Scan History</h1>
-
-            <p>
-              Your previous website security analyses.
-            </p>
-          </div>
-
-          {history.length > 0 && (
-            <button
-              className="clear-history-btn"
-              onClick={() => {
-                alert(
-                  "History is stored in the database. Database deletion will be added next."
-                );
-              }}
-            >
-              Clear History
-            </button>
-          )}
-
-        </header>
-
-
-        {/* LOADING */}
         {loading && (
           <div className="history-empty">
-
-            <div className="history-empty-icon">
-              ◷
-            </div>
-
             <h2>Loading scan history...</h2>
-
             <p>
-              Fetching your previous security scans.
+              Fetching your previous scans.
             </p>
-
           </div>
         )}
 
 
-        {/* ERROR */}
         {!loading && error && (
           <div className="history-empty">
 
-            <div className="history-empty-icon">
-              ⚠
-            </div>
+            <h2>Something went wrong</h2>
 
-            <h2>Unable to load history</h2>
-
-            <p>
-              {error}
-            </p>
+            <p>{error}</p>
 
             <button
-              onClick={() => window.location.reload()}
+              className="primary-btn"
+              onClick={loadHistory}
             >
               Try Again
             </button>
@@ -207,84 +118,186 @@ function History() {
         )}
 
 
-        {/* EMPTY */}
-        {!loading && !error && history.length === 0 && (
-          <div className="history-empty">
+        {!loading &&
+          !error &&
+          scans.length === 0 && (
 
-            <div className="history-empty-icon">
-              ◷
+            <div className="history-empty">
+
+              <h2>No scans yet</h2>
+
+              <p>
+                Run your first security scan from
+                the dashboard.
+              </p>
+
+              <button
+                className="primary-btn"
+                onClick={() =>
+                  navigate("/dashboard")
+                }
+              >
+                Run a New Scan
+              </button>
+
             </div>
 
-            <h2>No scan history yet</h2>
-
-            <p>
-              Your website security scans will appear here.
-            </p>
-
-            <button
-              onClick={() => navigate("/dashboard")}
-            >
-              Start a Security Check
-            </button>
-
-          </div>
-        )}
+          )}
 
 
-        {/* HISTORY */}
-        {!loading && !error && history.length > 0 && (
+        {!loading &&
+          !error &&
+          scans.length > 0 && (
 
-          <div className="history-list">
+            <div className="history-list">
 
-            {history.map((item) => (
-
-              <div
-                className="history-item"
-                key={item._id}
-                onClick={() => navigate(`/scan-details-${item._id}`)}
-              >
-
-                <div className="history-icon">
-                  🌐
-                </div>
-
-                <div className="history-details">
-
-                  <div className="history-url">
-                    {item.target}
-                  </div>
-
-                  <div className="history-date">
-                    {formatDate(item.createdAt)}
-                  </div>
-
-                </div>
+              {scans.map((scan) => (
 
                 <div
-                  className={`history-risk ${getRiskClass(
-                    item.riskLevel
-                  )}`}
+                  className="history-card"
+                  key={scan._id}
                 >
-                  {item.riskLevel || "UNKNOWN"}
+
+                  {/* TOP */}
+
+                  <div className="history-card-top">
+
+                    <div>
+
+                      <span className="scan-label">
+                        WEBSITE
+                      </span>
+
+                      <h2>
+                        {scan.target}
+                      </h2>
+
+                      <p className="scan-date">
+                        {scan.createdAt
+                          ? new Date(
+                              scan.createdAt
+                            ).toLocaleString()
+                          : "Date unavailable"}
+                      </p>
+
+                    </div>
+
+
+                    <div className="score-box">
+
+                      <span>
+                        Security Score
+                      </span>
+
+                      <strong>
+                        {scan.securityScore}
+                      </strong>
+
+                      <small>
+                        /100
+                      </small>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* RISK */}
+
+                  <div className="history-risk">
+
+                    <span>
+                      Risk Level
+                    </span>
+
+                    <strong
+                      className={`risk-${getRiskClass(
+                        scan.riskLevel
+                      )}`}
+                    >
+                      {scan.riskLevel || "Unknown"}
+                    </strong>
+
+                  </div>
+
+
+                  {/* FINDINGS */}
+
+                  <div className="history-findings">
+
+                    <div>
+                      🔴
+                      <strong>
+                        {getFindingCount(
+                          scan,
+                          "CRITICAL"
+                        )}
+                      </strong>
+                      <span>Critical</span>
+                    </div>
+
+                    <div>
+                      🟠
+                      <strong>
+                        {getFindingCount(
+                          scan,
+                          "HIGH"
+                        )}
+                      </strong>
+                      <span>High</span>
+                    </div>
+
+                    <div>
+                      🟡
+                      <strong>
+                        {getFindingCount(
+                          scan,
+                          "MEDIUM"
+                        )}
+                      </strong>
+                      <span>Medium</span>
+                    </div>
+
+                    <div>
+                      🔵
+                      <strong>
+                        {getFindingCount(
+                          scan,
+                          "LOW"
+                        )}
+                      </strong>
+                      <span>Low</span>
+                    </div>
+
+                  </div>
+
+
+                  {/* ACTION */}
+
+                  <div className="history-action">
+
+                    <button
+                      className="secondary-btn"
+                      onClick={() =>
+                        navigate(
+                          `/scan-details/${scan._id}`
+                        )
+                      }
+                    >
+                      View Full Report →
+                    </button>
+
+                  </div>
+
                 </div>
 
-                <div className="history-score">
-                  {item.securityScore ?? "--"}/100
-                </div>
+              ))}
 
-                <div className="history-arrow">
-                  →
-                </div>
+            </div>
 
-              </div>
+          )}
 
-            ))}
-
-          </div>
-
-        )}
-
-      </main>
+      </div>
 
     </div>
   );

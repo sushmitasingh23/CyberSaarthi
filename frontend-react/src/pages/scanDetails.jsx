@@ -27,6 +27,7 @@ function ScanDetails() {
 
         const data = await response.json();
 
+
         if (data.success) {
           setScan(data.scan);
         } else {
@@ -73,6 +74,8 @@ function ScanDetails() {
       </div>
     );
   }
+
+  
 
   if (error || !scan) {
     return (
@@ -173,9 +176,69 @@ function ScanDetails() {
               {scan.riskLevel || "UNKNOWN"}
             </div>
 
+            <p className="risk-message">
+    {scan.riskLevel === "CRITICAL"
+      ? "⚠ Immediate attention required. Multiple serious security weaknesses were detected."
+      : scan.riskLevel === "HIGH"
+      ? "⚠ High-risk issues were detected. Review the findings and apply the recommended fixes."
+      : scan.riskLevel === "MEDIUM"
+      ? "⚠ Some security improvements are recommended."
+      : "✓ No major security risks were detected."}
+  </p>
+
           </div>
 
         </section>
+
+        {/* VULNERABILITY SUMMARY */}
+
+<section className="details-card vulnerability-summary">
+
+  <div className="card-label">
+    VULNERABILITY SUMMARY
+  </div>
+
+  <div className="details-severity-grid">
+
+    <div className="details-severity-card critical">
+      <strong>
+        {scan.findings?.filter(
+          (finding) => finding.severity === "CRITICAL"
+        ).length || 0}
+      </strong>
+      <span>Critical</span>
+    </div>
+
+    <div className="details-severity-card high">
+      <strong>
+        {scan.findings?.filter(
+          (finding) => finding.severity === "HIGH"
+        ).length || 0}
+      </strong>
+      <span>High</span>
+    </div>
+
+    <div className="details-severity-card medium">
+      <strong>
+        {scan.findings?.filter(
+          (finding) => finding.severity === "MEDIUM"
+        ).length || 0}
+      </strong>
+      <span>Medium</span>
+    </div>
+
+    <div className="details-severity-card low">
+      <strong>
+        {scan.findings?.filter(
+          (finding) => finding.severity === "LOW"
+        ).length || 0}
+      </strong>
+      <span>Low</span>
+    </div>
+
+  </div>
+
+</section>
 
 
         {/* FINDINGS */}

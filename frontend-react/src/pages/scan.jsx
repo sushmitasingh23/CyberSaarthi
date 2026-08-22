@@ -8,24 +8,47 @@ function Scan() {
 
   const navigate = useNavigate();
 
-  const handleScan = (e) => {
-    e.preventDefault();
+  const handleScan = async (e) => {
+  e.preventDefault();
 
-    if (!target.trim()) {
-      return;
+  if (!target.trim()) {
+    return;
+  }
+
+  setScanning(true);
+
+  try {
+    const response = await fetch("http://localhost:5000/api/scan", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        target: target.trim(),
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.error || "Scan failed");
     }
 
-    setScanning(true);
+    console.log("SCAN RESULT:", data);
 
-    // Frontend demo only
-    setTimeout(() => {
-      navigate("/scan-result", {
-        state: {
-          target: target,
-        },
-      });
-    }, 2500);
-  };
+    navigate("/scan-result", {
+      state: {
+        scan: data,
+      },
+    });
+
+  } catch (error) {
+    console.error("Scan error:", error);
+    alert(error.message || "Unable to scan website.");
+  } finally {
+    setScanning(false);
+  }
+};
 
   return (
     <div className="scan-page">
