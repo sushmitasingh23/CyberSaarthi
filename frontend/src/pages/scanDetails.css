@@ -1,0 +1,444 @@
+/* ===============================
+   SCAN DETAILS PAGE
+================================ */
+
+.scan-details-page {
+    min-height: 100vh;
+    background: #0b0f14;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+
+/* ===============================
+   HEADER
+================================ */
+
+.scan-details-header {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    padding: 25px 40px;
+    border-bottom: 1px solid #202832;
+    background: #0d1219;
+}
+
+.back-button {
+    background: #18222d;
+    color: #ffffff;
+    border: 1px solid #293643;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.back-button:hover {
+    background: #22303d;
+}
+
+.header-title h1 {
+    margin: 0;
+    font-size: 26px;
+}
+
+.header-title p {
+    margin: 5px 0 0;
+    color: #8b98a7;
+}
+
+
+/* ===============================
+   MAIN
+================================ */
+
+.scan-details-main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 35px 25px 60px;
+}
+
+
+/* ===============================
+   COMMON CARD
+================================ */
+
+.details-card,
+.score-card,
+.findings-section {
+    background: #111820;
+    border: 1px solid #202b36;
+    border-radius: 14px;
+    margin-bottom: 22px;
+}
+
+
+/* ===============================
+   TARGET
+================================ */
+
+.details-card {
+    padding: 25px;
+}
+
+.card-label {
+    color: #7f8c99;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.target-url {
+    font-size: 20px;
+    font-weight: bold;
+    word-break: break-all;
+}
+
+.scan-date {
+    margin-top: 10px;
+    color: #7f8c99;
+    font-size: 14px;
+}
+
+
+/* ===============================
+   SCORE
+================================ */
+
+.score-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+.score-section,
+.risk-section {
+    flex: 1;
+}
+
+.security-score {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.security-score span {
+    font-size: 20px;
+    color: #7f8c99;
+}
+
+.risk-badge {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.risk-badge.low {
+    background: #123d29;
+    color: #4ade80;
+}
+
+.risk-badge.medium {
+    background: #443714;
+    color: #facc15;
+}
+
+.risk-badge.high {
+    background: #481b1b;
+    color: #ff5c5c;
+}
+
+
+/* ===============================
+   FINDINGS
+================================ */
+
+.findings-section {
+    padding: 30px;
+}
+
+.findings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.findings-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.findings-header p {
+    color: #7f8c99;
+    margin: 7px 0 0;
+}
+
+.finding-count {
+    background: #1b2632;
+    color: #9ca9b7;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+
+/* ===============================
+   FINDING CARD
+================================ */
+
+.findings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.finding-card {
+    background: #0d141c;
+    border: 1px solid #26323e;
+    border-radius: 12px;
+    padding: 22px;
+}
+
+.finding-top {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.finding-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #3d1717;
+    color: #ff5c5c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.finding-title-section {
+    flex: 1;
+}
+
+.finding-title-section h3 {
+    margin: 0;
+    font-size: 17px;
+}
+
+.finding-category {
+    display: inline-block;
+    margin-top: 5px;
+    color: #7f8c99;
+    font-size: 13px;
+}
+
+
+/* ===============================
+   SEVERITY
+================================ */
+
+.severity-badge {
+    padding: 7px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.severity-badge.high {
+    background: #481b1b;
+    color: #ff5c5c;
+}
+
+.severity-badge.medium {
+    background: #443714;
+    color: #facc15;
+}
+
+.severity-badge.low {
+    background: #123d29;
+    color: #4ade80;
+}
+
+
+/* ===============================
+   DESCRIPTION
+================================ */
+
+.finding-description,
+.finding-recommendation {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #202a34;
+}
+
+.finding-description strong,
+.finding-recommendation strong {
+    font-size: 13px;
+    color: #aab5c0;
+}
+
+.finding-description p,
+.finding-recommendation p {
+    color: #8996a4;
+    line-height: 1.6;
+    margin: 7px 0 0;
+}
+
+
+/* ===============================
+   NO FINDINGS
+================================ */
+
+.no-findings {
+    text-align: center;
+    padding: 50px 20px;
+    color: #7f8c99;
+}
+
+.no-findings > div {
+    font-size: 40px;
+    color: #4ade80;
+}
+
+.no-findings h3 {
+    color: #ffffff;
+}
+
+
+/* ===============================
+   LOADING / ERROR
+================================ */
+
+.scan-details-loading,
+.scan-details-error {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.loading-icon {
+    font-size: 40px;
+}
+
+.scan-details-loading p,
+.scan-details-error p {
+    color: #7f8c99;
+}
+
+.scan-details-error button {
+    margin-top: 15px;
+    padding: 11px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #2678ff;
+    color: white;
+    cursor: pointer;
+}
+
+
+/* ===============================
+   MOBILE
+================================ */
+
+@media (max-width: 700px) {
+
+    .scan-details-header {
+        padding: 20px;
+    }
+
+    .scan-details-main {
+        padding: 20px 15px;
+    }
+
+    .score-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 25px;
+    }
+
+    .findings-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .finding-top {
+        align-items: flex-start;
+    }
+
+    .severity-badge {
+        margin-left: auto;
+    }
+
+}
+/* ============================= */
+/* VULNERABILITY SUMMARY */
+/* ============================= */
+
+.details-severity-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.details-severity-card {
+  padding: 16px;
+  border-radius: 12px;
+  background: #111820;
+  border: 1px solid #202b36;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.details-severity-card strong {
+  font-size: 26px;
+}
+
+.details-severity-card span {
+  font-size: 13px;
+  color: #9aa6b2;
+}
+
+.details-severity-card.critical {
+  border-left: 4px solid #ff3b30;
+}
+
+.details-severity-card.high {
+  border-left: 4px solid #ff9500;
+}
+
+.details-severity-card.medium {
+  border-left: 4px solid #ffd60a;
+}
+
+.details-severity-card.low {
+  border-left: 4px solid #0a84ff;
+}
+
+@media (max-width: 800px) {
+  .details-severity-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .details-severity-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.risk-message {
+  margin-top: 12px;
+  color: #9aa6b2;
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 320px;
+}

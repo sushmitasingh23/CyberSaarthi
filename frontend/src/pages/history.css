@@ -1,0 +1,411 @@
+/* =========================================
+   CYBERSAARTHI - SCAN HISTORY
+========================================= */
+
+.history-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #172033;
+  padding: 40px;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.history-header {
+  max-width: 1200px;
+  margin: 0 auto 32px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+.history-label {
+  margin: 0 0 8px;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  color: #667085;
+}
+
+.history-header h1 {
+  margin: 0;
+
+  font-size: 34px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.history-header p:last-child {
+  margin-top: 8px;
+
+  color: #667085;
+  font-size: 15px;
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.history-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+/* =========================================
+   HISTORY LIST
+========================================= */
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+
+/* =========================================
+   HISTORY CARD
+========================================= */
+
+.history-card {
+  background: #ffffff;
+
+  border: 1px solid #e6eaf0;
+  border-radius: 18px;
+
+  padding: 24px;
+
+  box-shadow:
+    0 4px 18px rgba(16, 24, 40, 0.05);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.history-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 28px rgba(16, 24, 40, 0.09);
+}
+
+
+/* =========================================
+   CARD TOP
+========================================= */
+
+.history-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 30px;
+}
+
+.scan-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+
+  color: #98a2b3;
+}
+
+.history-card h2 {
+  margin: 0;
+
+  max-width: 700px;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  color: #101828;
+
+  word-break: break-word;
+}
+
+.scan-date {
+  margin: 8px 0 0;
+
+  font-size: 13px;
+  color: #98a2b3;
+}
+
+
+/* =========================================
+   SCORE
+========================================= */
+
+.score-box {
+  min-width: 125px;
+
+  padding: 14px 18px;
+
+  text-align: center;
+
+  background: #f8fafc;
+
+  border: 1px solid #e7ebf0;
+  border-radius: 14px;
+}
+
+.score-box span {
+  display: block;
+
+  font-size: 11px;
+  color: #667085;
+
+  margin-bottom: 4px;
+}
+
+.score-box strong {
+  font-size: 28px;
+  color: #111827;
+}
+
+.score-box small {
+  font-size: 13px;
+  color: #98a2b3;
+}
+
+
+/* =========================================
+   RISK
+========================================= */
+
+.history-risk {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: 20px;
+  padding-top: 18px;
+
+  border-top: 1px solid #eef1f5;
+}
+
+.history-risk span {
+  font-size: 13px;
+  color: #667085;
+}
+
+.history-risk strong {
+  font-size: 13px;
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  background: #f2f4f7;
+  color: #344054;
+}
+
+
+/* Risk colors */
+
+.risk-critical {
+  background: #fef3f2 !important;
+  color: #b42318 !important;
+}
+
+.risk-high {
+  background: #fff4ed !important;
+  color: #c4320a !important;
+}
+
+.risk-medium {
+  background: #fffaeb !important;
+  color: #b54708 !important;
+}
+
+.risk-low {
+  background: #ecfdf3 !important;
+  color: #027a48 !important;
+}
+
+
+/* =========================================
+   FINDINGS
+========================================= */
+
+.history-findings {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(100px, 1fr));
+
+  gap: 12px;
+
+  margin-top: 18px;
+}
+
+.history-findings > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 12px 14px;
+
+  background: #f8fafc;
+
+  border: 1px solid #edf0f4;
+
+  border-radius: 12px;
+}
+
+.history-findings strong {
+  font-size: 16px;
+  color: #101828;
+}
+
+.history-findings span {
+  font-size: 12px;
+  color: #667085;
+}
+
+
+/* =========================================
+   ACTION
+========================================= */
+
+.history-action {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 20px;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.primary-btn,
+.secondary-btn {
+  border: none;
+  border-radius: 10px;
+
+  padding: 11px 18px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.primary-btn {
+  background: #172033;
+  color: white;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+.secondary-btn {
+  background: #eef2f6;
+  color: #172033;
+}
+
+
+/* =========================================
+   EMPTY / LOADING
+========================================= */
+
+.history-empty {
+  min-height: 400px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  background: white;
+
+  border: 1px solid #e6eaf0;
+  border-radius: 20px;
+
+  box-shadow:
+    0 4px 18px rgba(16, 24, 40, 0.05);
+}
+
+.history-empty h2 {
+  margin-bottom: 8px;
+
+  font-size: 22px;
+  color: #172033;
+}
+
+.history-empty p {
+  margin-bottom: 20px;
+
+  color: #667085;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 800px) {
+
+  .history-page {
+    padding: 20px;
+  }
+
+  .history-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .history-card-top {
+    flex-direction: column;
+  }
+
+  .score-box {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .history-findings {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 500px) {
+
+  .history-findings {
+    grid-template-columns: 1fr;
+  }
+
+  .history-header h1 {
+    font-size: 28px;
+  }
+
+  .history-card {
+    padding: 18px;
+  }
+
+}
