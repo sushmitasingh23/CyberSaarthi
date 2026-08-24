@@ -801,7 +801,7 @@ app.listen(
     () => {
 
         console.log(
-            `CyberSaarthi backend running on http://localhost:${PORT}`
+            `CyberSaarthi backend running on port ${PORT}`
         );
 
         console.log(
